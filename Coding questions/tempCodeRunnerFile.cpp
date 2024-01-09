@@ -1,5 +1,4 @@
-if (status == 0)
-            // {
-            //     break;
-            // }
-            // status = 0;
+for( auto it : ds){
+        //     cout << it << " ";
+        // }
+        // cout << endl;
