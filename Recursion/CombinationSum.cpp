@@ -4,47 +4,52 @@ using namespace std;
 
 // no error but wont stop printing 
 
-int calculateSubsets( int i, vector<int> &nums, vector<int> &ds, vector<vector< int > > &result, int sum, int K);
+void calculateSubsets( int i, vector<int> &nums, vector<int> &ds, vector<vector< int > > &result, int sum, int K);
 void printing2D( vector< vector<int> > result );
 void print1D( vector<int> final);
 
 int main(){
 
     vector<int> nums;       //define nums in question
-    int K = 2;
+    int K = 7;
 
     //insertion
-    nums.push_back(1);
     nums.push_back(2);
-    nums.push_back(1);
+    nums.push_back(2);
+    nums.push_back(3);
+    nums.push_back(7);
 
     vector<int> ds;
     vector< vector<int> > result;
     int sum = 0;
-    bool res = calculateSubsets( 0, nums, ds, result, sum, K);
-    cout << res << endl;
+    calculateSubsets( 0, nums, ds, result, sum, K);
 
     //printing2D( result );
 
     return 0;
 }
 
-int calculateSubsets( int i, vector<int> &nums, vector<int> &ds, vector<vector< int > > &result, int sum, int K) {
+void calculateSubsets( int i, vector<int> &nums, vector<int> &ds, vector<vector< int > > &result, int sum, int K) {
 
     //base condition 
     if( i == nums.size() ){
        if( sum == K){
-        return 1;
+        // print ds
+        for(auto it : ds){
+            cout << it << " ";
+        }
+        cout << endl;
+        //result.push_back( ds );
        }
-       return 0;
+       return;
     }
 
+    ds.push_back( nums[i] );
     sum += nums[i];
-    int l = calculateSubsets( i + 1, nums, ds, result, sum, K);
-    
+    calculateSubsets( i + 1, nums, ds, result, sum, K);
+    ds.pop_back();
     sum -= nums[i];
-    int r = calculateSubsets( i + 1, nums, ds, result, sum, K);
-    return l + r;
+    calculateSubsets( i + 1, nums, ds, result, sum, K);
 
 }
 

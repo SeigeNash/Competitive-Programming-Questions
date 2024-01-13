@@ -1,73 +1,52 @@
+/*
+Given a list arr of N integers, return sums of all subsets in it. Problem available on geeksforgeeks
+*/
+
 #include <iostream>
 #include <vector>
 using namespace std;
 
-// no error but wont stop printing 
-
-void calculateSubsets( int i, vector<int> &nums, vector<int> &ds, vector<vector< int > > &result, int sum, int K);
-void printing2D( vector< vector<int> > result );
-void print1D( vector<int> final);
+void helper( int i, vector<int> &result, vector<int> &arr, vector<int> &ds, int N);
 
 int main(){
 
-    vector<int> nums;       //define nums in question
-    int K = 2;
+    // define inputs 
+    int N = 3;
+    vector<int> arr;
+    arr.push_back(5);
+    arr.push_back(2);
+    arr.push_back(1);
 
-    //insertion
-    nums.push_back(1);
-    nums.push_back(1);
-    nums.push_back(1);
+    vector<int> result;
+    vector<int> ds;     
+    helper( 0, result, arr, ds, N);
 
-    vector<int> ds;
-    vector< vector<int> > result;
-    int sum = 0;
-    calculateSubsets( 0, nums, ds, result, sum, K);
-
-    //printing2D( result );
-
+    cout << "elements in result: ";
+    for( int i = 0; i < result.size(); i++ ){
+        cout << result[i] << " ";     
+    }
+    
     return 0;
 }
 
-void calculateSubsets( int i, vector<int> &nums, vector<int> &ds, vector<vector< int > > &result, int sum, int K) {
 
-    //base condition 
-    if( i == nums.size() ){
-       if( sum == K){
-        // print ds
-        for(auto it : ds){
-            cout << it << " ";
-        }
-        cout << endl;
-        //result.push_back( ds );
-       }
-       return;
-    }
-
-    ds.push_back( nums[i] );
-    sum += nums[i];
-    calculateSubsets( i + 1, nums, ds, result, sum, K);
-    ds.pop_back();
-    sum -= nums[i];
-    calculateSubsets( i + 1, nums, ds, result, sum, K);
-
-}
-
-
-
-
-void printing2D( vector< vector<int> > result ){
-
-    for (int i = 0; i < result.size() ; i++)
-    {
-        int size = result[i].size();
-        for (int j = 0; i <  size; i++)
-        {
-            cout << result[i][j] << " ";
-        }
-        cout << endl;
+void helper( int i, vector<int> &result, vector<int> &arr, vector<int> &ds, int N){
         
+    if( i == arr.size() ){
+        // calculate sum of all the elements in vector ds
+        int sum = 0;
+        for( int s = 0; s < ds.size(); s++ ){
+            //cout << ds[s] << " ";
+            sum = sum + ds[s];    
+        }
+        //cout << sum << endl;
+        result.push_back(sum);
+        return;
     }
-    
+    //cout << "Pushing arr[i] in ds: " << i << endl;    
+    ds.push_back( arr[i] );
+    helper( i + 1, result, arr, ds, N);
+    ds.pop_back();
+    helper( i + 1, result, arr, ds, N);
+        
 }
-
-
