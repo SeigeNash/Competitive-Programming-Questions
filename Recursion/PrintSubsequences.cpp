@@ -13,6 +13,9 @@ int main(){
     vector<int> ds;
     vector< vector<int> > result;
     vector<int> nums;       //define nums in question
+    nums.push_back(1);
+    nums.push_back(2);
+    nums.push_back(3);
     calculateSubsets( 0, result, nums, ds);
 
     return 0;

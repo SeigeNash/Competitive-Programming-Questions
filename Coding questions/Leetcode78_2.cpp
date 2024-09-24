@@ -31,17 +31,6 @@ void calculateSubsets( int i, vector<vector< int > > &result, vector<int> &nums,
     ds.pop_back();
     calculateSubsets( i+1, result, nums, ds);
 
-
-    //pushing ds in final vector
-    // result.push_back(ds);
-    // for(int i = idx; i < nums.size(); ){
-    //     //for selecting 
-    //     ds.push_back( nums[i] );
-    //     calculateSubsets( i+1, result, nums, ds);
-    //     //for deselecting 
-    //     ds.pop_back();
-    //     i++;
-    // }
 }
 
 

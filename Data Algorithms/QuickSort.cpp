@@ -1,72 +1,50 @@
 #include <iostream>
-#include <vector>
+using namespace std;
 
-/*
+// the following function defines the working of how comparision and sorting happens within a certain partition 
+int partition(int * arr, int low, int high){
 
-Partition( l, h ){
+    int pivot = arr[high];
+    int i = low;
 
-    pivot = A[l];
-    i = l, j = h;
-
-    while( i < j ){
-
-        do{
+    for (int j = low; j <= high; j++)
+    {
+        if( arr[j] < pivot ){
+            // i is being incremented first because the value of i currently is low - 1
+            swap( arr[i], arr[j]);
             i++;
-        }while( A[i] <= pivot )
-
-        do{
-            j--;
-        }while( A[j] > pivot );
-
-        if( i <= j){
-            swap( A[i], A[j])
         }
-        swap( A[l], A[j] )
-        return j;
-
     }
+    // the array has been sorted according to elements lower than pivot near the beginning and vice versa
+    // push pivot at the back 
+    swap( arr[i], arr[high]);
+
+    return i;
 }
 
+// the following method defines how the partiotions must be created 
+void quickSort( int * arr, int low, int high){
 
-*/
+    if( low < high ){
+        int pivot = partition( arr, low, high );
 
+        quickSort( arr, low, pivot - 1);
+        quickSort( arr, pivot + 1, high);
+    }
 
-
-using namespace std;
+}
 
 int main(){
 
-    
-    int arr[] = {10, 80, 30, 90, 40};
+    int arr[] = { 5, 6, 1, 55, 24, 89, 72};
+    int size = sizeof( arr ) / sizeof( arr[0] );
 
-    return 0;
+    quickSort( arr, 0, size - 1);
 
-}
-
-
-int partition( int * arr, int low, int high ){
-
-    int pivot = arr[ low ];
-    int i = low, j = high;
-
-    while( i < j ){
-
-        do{
-            i++;
-        }while( arr[i] <= pivot );
-
-        do{
-            j--;
-        }while( arr[j] > pivot );
-
-        if( i <= j){
-            swap( arr[i], arr[j]);
-        }
-
-        swap( arr[ low ], arr[j] );
-
-        return j;
-
+    for (int i = 0; i < size; i++)
+    {
+        cout << arr[i] << endl;
     }
-
+    
+    return 0;
 }
